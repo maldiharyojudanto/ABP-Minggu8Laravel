@@ -92,6 +92,33 @@
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
                     <h2 class="fs-2 m-0"> Gudang</h2>
                 </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>{{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </nav>
 
             <!-- content -->
@@ -100,7 +127,7 @@
                 <p>Berikut adalah detail gudang {{$detail->nama_gudang}}.</p>
                 <a href="/gudang" class="btn btn-secondary mb-4"><i class="fas fa-arrow-left"></i> Back</a>
 
-                <div class="col">
+                <div class="col bg-white rounded mb-4">
                     <div class="table-responsive">
                         <table class="table bg-white rounded table-hover">
                             <thead>
@@ -131,22 +158,16 @@
                             </thead>
                             <tbody>
                                 <?php $number = 1; ?>
-                                @foreach($produk as $daftar)
-                                    @if($daftar->gudang_id === $detail->id)
+                                @foreach($detail->produk as $ditel)
                                     <tr>
-                                        <th scope="row">{{ $number }}.</th>
-                                        <td>{{ $daftar->nama_produk }}</td>
-                                        <td>{{ $daftar->stok }}</td>
-                                        <td>{{ $daftar->harga }}</td>
+                                        <td>{{ $number }}</th>
+                                        <td>{{ $ditel->nama_produk }}</td>
+                                        <td>{{ $ditel->stok }}</td>
+                                        <td>{{ $ditel->harga }}</td>
                                         <td>
-                                            @foreach($brand as $merk)
-                                                @if($merk->id === $daftar->brand_id)
-                                                    {{ $merk->nama_brand }}
-                                                @endif
-                                            @endforeach
-                                        </td>
+                                            {{ $ditel->brand->nama_brand }}
+                                        </td>                                                                                       </td>
                                     </tr>
-                                    @endif
                                     <?php $number++; ?>
                                 @endforeach
                             </tbody>

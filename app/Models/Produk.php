@@ -9,6 +9,13 @@ class Produk extends Model
 {
     use HasFactory;
     protected $table = "Produk";
+    protected $fillable = [
+        'nama_produk',
+        'stok',
+        'brand_id',
+        'gudang_id',
+        'harga'
+    ];
 
     public function brand() {
         return $this->belongsTo(Brand::class,'brand_id','id');

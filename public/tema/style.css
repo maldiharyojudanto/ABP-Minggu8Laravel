@@ -96,5 +96,14 @@
 }
 
 .card-header {
-    font-weight: bold;
+    font-weight: normal;
+}
+
+.table-responsive {
+    padding: 15px;
+}
+
+.navbar-brand {
+    font-weight: 500;
+    text-transform: uppercase;
 }
